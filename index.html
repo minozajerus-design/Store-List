@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ester's Store Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<header>
+
+    <h1>🛒 Ester's Store Manager</h1>
+    <p>Manage your store items easily.</p>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search items...">
+
+</header>
+
+<main>
+
+<!-- ========================= -->
+<!-- ADD ITEM -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>➕ Add New Item</h2>
+
+<div class="form-group">
+
+<input
+type="text"
+id="itemName"
+placeholder="Item Name">
+
+<input
+type="number"
+id="itemPrice"
+placeholder="Price">
+
+<select id="category">
+
+<option value="snacksTable">
+🍪 Snacks
+</option>
+
+<option value="drinksTable">
+🥤 Drinks
+</option>
+
+<option value="cigarettesTable">
+ 🧴 Daily Essentials
+</option>
+
+<option value="noodlesTable">
+📦Others
+</option>
+
+</select>
+
+<button id="addButton">
+Add Item
+</button>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- SNACKS -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>🍪 Snacks</h2>
+
+<table id="snacksTable">
+
+<thead>
+
+<tr>
+
+<th>Item</th>
+<th>Price</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Nova</td>
+<td>₱22</td>
+
+<td>
+
+<button class="editBtn">
+✏️
+</button>
+
+<button class="deleteBtn">
+🗑
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>SkyFlakes</td>
+<td>₱10</td>
+
+<td>
+
+<button class="editBtn">
+✏️
+</button>
+
+<button class="deleteBtn">
+🗑
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Piattos</td>
+<td>₱25</td>
+
+<td>
+
+<button class="editBtn">
+✏️
+</button>
+
+<button class="deleteBtn">
+🗑
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- DRINKS -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>🥤 Drinks</h2>
+
+<table id="drinksTable">
+
+<thead>
+
+<tr>
+
+<th>Item</th>
+<th>Price</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Coke 290ml</td>
+<td>₱20</td>
+
+<td>
+
+<button class="editBtn">
+✏️
+</button>
+
+<button class="deleteBtn">
+🗑
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Sprite</td>
+<td>₱20</td>
+
+<td>
+
+<button class="editBtn">
+✏️
+</button>
+
+<button class="deleteBtn">
+🗑
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Royal</td>
+<td>₱20</td>
+
+<td>
+
+<button class="editBtn">
+✏️
+</button>
+
+<button class="deleteBtn">
+🗑
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- CIGARETTES -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>🧴 Daily Essentials </h2>
+
+<table id="cigarettesTable">
+
+<thead>
+
+<tr>
+<th>Item</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Marlboro</td>
+<td>₱10 / stick</td>
+
+<td>
+<button class="editBtn">✏️</button>
+<button class="deleteBtn">🗑</button>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Fortune</td>
+<td>₱9 / stick</td>
+
+<td>
+<button class="editBtn">✏️</button>
+<button class="deleteBtn">🗑</button>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Camel</td>
+<td>₱9 / stick</td>
+
+<td>
+<button class="editBtn">✏️</button>
+<button class="deleteBtn">🗑</button>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- INSTANT NOODLES -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>📦 Others</h2>
+
+<table id="noodlesTable">
+
+<thead>
+
+<tr>
+<th>Item</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Lucky Me Beef</td>
+<td>₱18</td>
+
+<td>
+<button class="editBtn">✏️</button>
+<button class="deleteBtn">🗑</button>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Lucky Me Chicken</td>
+<td>₱18</td>
+
+<td>
+<button class="editBtn">✏️</button>
+<button class="deleteBtn">🗑</button>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Lucky Me Pancit Canton</td>
+<td>₱20</td>
+
+<td>
+<button class="editBtn">✏️</button>
+<button class="deleteBtn">🗑</button>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- STORE INFORMATION -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>📊 Store Information</h2>
+
+<p>
+Total Items:
+<strong id="totalItems">0</strong>
+</p>
+
+<p>
+Last Updated:
+<strong id="lastUpdated">Never</strong>
+</p>
+
+<button id="clearAll">
+🗑 Clear All Items
+</button>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+&copy; 2026 Ester's Store Manager
+</p>
+
+</footer>
+
+</body>
+
+</html>
