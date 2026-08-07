@@ -1,221 +1,746 @@
-/* ===========================
+
+/* =========================================
    RESET
-=========================== */
+========================================= */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ===========================
+
+/* =========================================
    BODY
-=========================== */
+========================================= */
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#eef2f7;
-    color:#333;
-    padding:30px;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #24324a;
+    padding: 30px;
+
+    background:
+        radial-gradient(circle at 10% 10%, rgba(52, 152, 219, 0.18), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(155, 89, 182, 0.15), transparent 25%),
+        linear-gradient(135deg, #eef5ff, #f8f4ff);
+
+    min-height: 100vh;
+
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ===========================
+
+/* =========================================
    HEADER
-=========================== */
+========================================= */
 
-header{
-    text-align:center;
-    margin-bottom:30px;
+header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-header h1{
-    font-size:40px;
-    color:#2c3e50;
-    margin-bottom:10px;
+header h1 {
+    font-size: 40px;
+    color: #263b73;
+    margin-bottom: 8px;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
-header p{
-    color:#777;
-    margin-bottom:20px;
+header p {
+    color: #687795;
+    margin-bottom: 22px;
+    font-size: 15px;
 }
 
-#search{
-    width:400px;
-    max-width:100%;
-    padding:12px;
-    font-size:16px;
-    border:2px solid #3498db;
-    border-radius:8px;
-    outline:none;
+
+/* =========================================
+   SEARCH
+========================================= */
+
+#search {
+    width: 500px;
+    max-width: 100%;
+
+    padding: 15px 20px;
+
+    font-size: 16px;
+
+    color: #263b73;
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 2px solid #d7e2f5;
+    border-radius: 14px;
+
+    outline: none;
+
+    box-shadow: 0 8px 25px rgba(52, 83, 140, 0.10);
+
+    transition: 0.25s;
 }
 
-#search:focus{
-    border-color:#2980b9;
+#search::placeholder {
+    color: #91a0b8;
 }
 
-/* ===========================
-   CARD
-=========================== */
+#search:focus {
+    border-color: #5b8def;
 
-.card{
-    background:white;
-    padding:20px;
-    margin-bottom:25px;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow:
+        0 0 0 4px rgba(91, 141, 239, 0.15),
+        0 8px 25px rgba(52, 83, 140, 0.10);
 }
 
-.card h2{
-    margin-bottom:15px;
-    color:#2c3e50;
+
+/* =========================================
+   CARDS
+========================================= */
+
+.card {
+    background: rgba(255, 255, 255, 0.88);
+
+    padding: 22px;
+
+    margin-bottom: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(54, 76, 120, 0.10);
+
+    backdrop-filter: blur(8px);
 }
 
-/* ===========================
+.card h2 {
+    margin-bottom: 16px;
+
+    color: #263b73;
+
+    font-size: 21px;
+}
+
+
+/* =========================================
    ADD ITEM FORM
-=========================== */
+========================================= */
 
-.form-group{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+.form-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .form-group input,
-.form-group select{
-    flex:1;
-    min-width:180px;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
+.form-group select {
+    flex: 1;
+    min-width: 180px;
+
+    padding: 13px 14px;
+
+    color: #263b73;
+
+    background: #f4f7ff;
+
+    border: 1px solid #d5def0;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.2s;
 }
 
-#addButton{
-    background:#27ae60;
-    color:white;
-    border:none;
-    padding:12px 18px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:15px;
-    transition:.3s;
+.form-group input:focus,
+.form-group select:focus {
+    background: white;
+
+    border-color: #6b8ff5;
+
+    box-shadow:
+        0 0 0 3px rgba(107, 143, 245, 0.13);
 }
 
-#addButton:hover{
-    background:#219150;
+
+/* =========================================
+   ADD BUTTON
+========================================= */
+
+#addButton {
+    background: linear-gradient(135deg, #27ae60, #20c77a);
+
+    color: white;
+
+    border: none;
+
+    padding: 13px 21px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    box-shadow: 0 6px 15px rgba(39, 174, 96, 0.22);
+
+    transition: 0.2s;
 }
 
-/* ===========================
+#addButton:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 20px rgba(39, 174, 96, 0.28);
+}
+
+#addButton:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
    TABLE
-=========================== */
+========================================= */
 
-table{
-    width:100%;
-    border-collapse:collapse;
+table {
+    width: 100%;
+
+    table-layout: fixed;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-radius: 14px;
+
+    border: 1px solid #dce5f4;
+
+    box-shadow: 0 5px 15px rgba(52, 83, 140, 0.06);
 }
 
-th{
-    background:#3498db;
-    color:white;
-    padding:12px;
-    text-align:left;
+
+/* =========================================
+   COLUMN WIDTHS
+========================================= */
+
+th:nth-child(1),
+td:nth-child(1) {
+    width: 55%;
 }
 
-td{
-    padding:12px;
-    border-bottom:1px solid #ddd;
+th:nth-child(2),
+td:nth-child(2) {
+    width: 20%;
 }
 
-tr:hover{
-    background:#f8f9fa;
+th:nth-child(3),
+td:nth-child(3) {
+    width: 25%;
 }
 
-/* ===========================
-   BUTTONS
-=========================== */
 
-.editBtn{
-    background:#3498db;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    border-radius:6px;
-    cursor:pointer;
-    margin-right:5px;
-    transition:.3s;
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+th {
+    background: linear-gradient(135deg, #527eea, #7656d6);
+
+    color: white;
+
+    padding: 13px 15px;
+
+    text-align: left;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
 }
 
-.editBtn:hover{
-    background:#2980b9;
+
+/* =========================================
+   TABLE CELLS
+========================================= */
+
+td {
+    padding: 14px 15px;
+
+    border-bottom: 1px solid #e9eef7;
+
+    font-size: 15px;
+
+    vertical-align: middle;
+
+    overflow-wrap: anywhere;
 }
 
-.deleteBtn{
-    background:#e74c3c;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    border-radius:6px;
-    cursor:pointer;
-    transition:.3s;
+tr:last-child td {
+    border-bottom: none;
 }
 
-.deleteBtn:hover{
-    background:#c0392b;
+
+/* =========================================
+   ITEM NAME
+========================================= */
+
+td:first-child {
+    font-weight: 600;
+
+    color: #34466c;
 }
 
-#clearAll{
-    margin-top:15px;
-    background:#e74c3c;
-    color:white;
-    border:none;
-    padding:12px 18px;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.3s;
+
+/* =========================================
+   PRICE
+========================================= */
+
+td:nth-child(2) {
+    color: #159957;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+    font-size: 16px;
 }
 
-#clearAll:hover{
-    background:#c0392b;
+
+/* =========================================
+   ROW HOVER
+========================================= */
+
+tbody tr {
+    transition: 0.18s;
 }
 
-/* ===========================
+tbody tr:hover {
+    background: #f1f6ff;
+
+    transform: scale(1.002);
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+td:nth-child(3) {
+    white-space: nowrap;
+}
+
+
+/* EDIT BUTTON
+========================================= */
+
+.editBtn {
+    background: #e9f2ff;
+
+    color: #3977d5;
+
+    border: 1px solid #c9dcfb;
+
+    padding: 7px 10px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    margin-right: 5px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.editBtn:hover {
+    background: #d8e8ff;
+
+    transform: translateY(-1px);
+}
+
+
+/* DELETE BUTTON
+========================================= */
+
+.deleteBtn {
+    background: #fff0f2;
+
+    color: #e34b5f;
+
+    border: 1px solid #f6ccd2;
+
+    padding: 7px 10px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.deleteBtn:hover {
+    background: #ffe0e5;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   EDIT INPUTS
+========================================= */
+
+td input {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 8px 9px;
+
+    background: white;
+
+    border: 2px solid #6b8ff5;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(107, 143, 245, 0.10);
+}
+
+
+/* =========================================
+   CLEAR ALL
+========================================= */
+
+#clearAll {
+    margin-top: 15px;
+
+    background: #fff0f2;
+
+    color: #d94156;
+
+    border: 1px solid #f2cbd1;
+
+    padding: 10px 16px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+#clearAll:hover {
+    background: #ffe0e5;
+}
+
+
+/* =========================================
    FOOTER
-=========================== */
+========================================= */
 
-footer{
-    text-align:center;
-    margin-top:30px;
-    color:#777;
+footer {
+    text-align: center;
+
+    margin-top: 35px;
+
+    color: #7c8aa3;
+
+    font-size: 13px;
 }
 
-/* ===========================
-   RESPONSIVE
-=========================== */
 
-@media(max-width:768px){
+/* =========================================
+   MOBILE
+========================================= */
 
-    body{
-        padding:15px;
+@media (max-width: 768px) {
+
+    body {
+        padding: 14px;
+
+        max-width: 100%;
     }
 
-    .form-group{
-        flex-direction:column;
+    header {
+        margin-bottom: 22px;
     }
 
-    #search{
-        width:100%;
+    header h1 {
+        font-size: 28px;
     }
 
-    table{
-        font-size:14px;
+    header p {
+        font-size: 14px;
     }
 
+    .card {
+        padding: 15px;
+
+        border-radius: 14px;
+    }
+
+    .card h2 {
+        font-size: 19px;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    .form-group input,
+    .form-group select,
+    #addButton {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    #search {
+        width: 100%;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    th {
+        padding: 10px 8px;
+
+        font-size: 10px;
+    }
+
+    td {
+        padding: 11px 8px;
+
+        font-size: 13px;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 48%;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 20%;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 32%;
+    }
+
+    td:nth-child(2) {
+        font-size: 14px;
+    }
+
+    .editBtn,
+    .deleteBtn {
+        padding: 6px 7px;
+
+        font-size: 12px;
+    }
 }
 
-td input{
-    width:100%;
-    padding:6px;
-    border:1px solid #3498db;
-    border-radius:5px;
-    font-size:15px;
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 430px) {
+
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    .card {
+        padding: 11px;
+    }
+
+    th,
+    td {
+        padding: 9px 6px;
+    }
+
+    .editBtn,
+    .deleteBtn {
+        padding: 5px 6px;
+
+        font-size: 11px;
+    }
+}
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark-mode {
+    color: #e8edf7;
+
+    background:
+        radial-gradient(circle at 10% 10%, rgba(52, 152, 219, 0.12), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(155, 89, 182, 0.10), transparent 25%),
+        linear-gradient(135deg, #101827, #171426);
+}
+
+
+/* Header */
+
+body.dark-mode header h1 {
+    color: #f1f5ff;
+}
+
+body.dark-mode header p {
+    color: #9ba8bd;
+}
+
+
+/* Search */
+
+body.dark-mode #search {
+    background: #202a3a;
+    color: #f1f5ff;
+    border-color: #3b4962;
+}
+
+body.dark-mode #search::placeholder {
+    color: #8491a7;
+}
+
+
+/* Cards */
+
+body.dark-mode .card {
+    background: rgba(29, 38, 54, 0.94);
+    border-color: #303d54;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .card h2 {
+    color: #f1f5ff;
+}
+
+
+/* Form */
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background: #202a3a;
+    color: #f1f5ff;
+    border-color: #3b4962;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+    background: #252f41;
+}
+
+
+/* Tables */
+
+body.dark-mode table {
+    background: #1d2636;
+    border-color: #354258;
+}
+
+body.dark-mode th {
+    background: linear-gradient(135deg, #405fc0, #6349ad);
+}
+
+body.dark-mode td {
+    color: #dce4f3;
+    border-bottom-color: #303c51;
+}
+
+body.dark-mode td:first-child {
+    color: #e7edf8;
+}
+
+body.dark-mode td:nth-child(2) {
+    color: #54d98b;
+}
+
+body.dark-mode tbody tr:hover {
+    background: #263247;
+}
+
+
+/* Edit inputs */
+
+body.dark-mode td input {
+    background: #202a3a;
+    color: white;
+    border-color: #668cff;
+}
+
+
+/* Footer */
+
+body.dark-mode footer {
+    color: #7f8da5;
+}
+
+
+/* Dark Mode Button */
+
+#darkModeBtn {
+    margin-top: 12px;
+
+    padding: 10px 16px;
+
+    border: 1px solid #cbd7eb;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #34466c;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#darkModeBtn:hover {
+    transform: translateY(-1px);
+    background: #f1f5ff;
+}
+
+
+/* Dark button when dark mode is active */
+
+body.dark-mode #darkModeBtn {
+    background: #263247;
+    color: #f1f5ff;
+    border-color: #465673;
+}
+
+body.dark-mode #darkModeBtn:hover {
+    background: #303d54;
 }
