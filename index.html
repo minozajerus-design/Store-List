@@ -11,6 +11,12 @@
 
 <body>
 
+<script>
+    if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark-mode");
+    }
+</script>
+
 <header>
 
     <h1>🛒 Ester's Store Price's </h1>
@@ -156,12 +162,12 @@ Add Item
 
 <p>
 Total Items:
-<strong id="totalItems">0</strong>
+<strong id="totalItems"></strong>
 </p>
 
 <p>
 Last Updated:
-<strong id="lastUpdated">Never</strong>
+<strong id="lastUpdated"></strong>
 </p>
 
 <button id="clearAll">
