@@ -1,3 +1,206 @@
+/* =========================================
+   THEME VARIABLES
+========================================= */
+
+:root {
+    --bg: #eef5ff;
+    --bg2: #f8f4ff;
+
+    --card: rgba(255, 255, 255, 0.9);
+    --surface: #ffffff;
+
+    --text: #24324a;
+    --heading: #263b73;
+    --muted: #687795;
+
+    --border: #dce5f4;
+    --row-border: #e9eef7;
+    --input: #f4f7ff;
+
+    --row-hover: #f1f6ff;
+
+    --price: #159957;
+
+    --search-shadow: rgba(52, 83, 140, 0.10);
+}
+
+
+/* =========================================
+   DARK THEME
+========================================= */
+
+body.dark-mode {
+    --bg: #0d1422;
+    --bg2: #171326;
+
+    --card: #1a2435;
+    --surface: #202b3e;
+
+    --text: #e7edf8;
+    --heading: #f2f5ff;
+    --muted: #9aa8bd;
+
+    --border: #354258;
+    --row-border: #303c51;
+    --input: #202b3e;
+
+    --row-hover: #263348;
+
+    --price: #54d98b;
+
+    --search-shadow: rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================================
+   EVERYTHING USES THE VARIABLES
+========================================= */
+
+body {
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(52, 152, 219, 0.15),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(155, 89, 182, 0.12),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg),
+            var(--bg2)
+        );
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+/* Headings */
+
+header h1,
+.card h2 {
+    color: var(--heading);
+}
+
+header p {
+    color: var(--muted);
+}
+
+
+/* Cards */
+
+.card {
+    background: var(--card);
+    border-color: var(--border);
+}
+
+
+/* Search */
+
+#search {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border);
+
+    box-shadow:
+        0 8px 25px var(--search-shadow);
+}
+
+#search::placeholder {
+    color: var(--muted);
+}
+
+
+/* Add item inputs */
+
+.form-group input,
+.form-group select {
+    background: var(--input);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+
+/* Tables */
+
+table {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+
+/* Table cells */
+
+td {
+    color: var(--text);
+    border-bottom-color: var(--row-border);
+}
+
+
+/* Item name */
+
+td:first-child {
+    color: var(--text);
+}
+
+
+/* Price */
+
+td:nth-child(2) {
+    color: var(--price);
+}
+
+
+/* Hover */
+
+tbody tr:hover {
+    background: var(--row-hover);
+}
+
+
+/* Edit inputs */
+
+td input {
+    background: var(--input);
+    color: var(--text);
+}
+
+
+/* Footer */
+
+footer {
+    color: var(--muted);
+}
+
+
+/* =========================================
+   DARK MODE BUTTON
+========================================= */
+
+#darkModeBtn {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+
+    padding: 10px 16px;
+    border-radius: 10px;
+
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#darkModeBtn:hover {
+    transform: translateY(-1px);
+}
 
 /* =========================================
    RESET
@@ -735,12 +938,15 @@ body.dark-mode footer {
 
 /* Dark button when dark mode is active */
 
-body.dark-mode #darkModeBtn {
-    background: #263247;
-    color: #f1f5ff;
-    border-color: #465673;
+body.dark-mode {
+    color: #e8edf7;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(52, 152, 219, 0.12), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(155, 89, 182, 0.10), transparent 25%),
+        linear-gradient(135deg, #101827, #171426);
 }
 
-body.dark-mode #darkModeBtn:hover {
-    background: #303d54;
+html.dark-loading body {
+    color: #e8edf7;
 }
+
