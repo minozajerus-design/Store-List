@@ -35,7 +35,7 @@
 <!-- ADD ITEM -->
 <!-- ========================= -->
 
-<section class="card">
+<section class="card" id="addItemSection">
 
 <h2>➕ Add New Item</h2>
 
@@ -94,10 +94,34 @@ Add Item
 </section>
 
 <!-- ========================= -->
+<!-- CATEGORY FILTER -->
+<!-- ========================= -->
+
+<section class="category-filter">
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">
+            <span class="filter-icon">🔍</span> All
+        </button>
+        <button class="filter-btn" data-filter="snacksSection">
+            <span class="filter-icon">🍪</span> Snacks
+        </button>
+        <button class="filter-btn" data-filter="drinksSection">
+            <span class="filter-icon">🥤</span> Drinks
+        </button>
+        <button class="filter-btn" data-filter="cigarettesSection">
+            <span class="filter-icon">🧴</span> Daily Essentials
+        </button>
+        <button class="filter-btn" data-filter="noodlesSection">
+            <span class="filter-icon">📦</span> Others
+        </button>
+    </div>
+</section>
+
+<!-- ========================= -->
 <!-- SNACKS -->
 <!-- ========================= -->
 
-<section class="card">
+<section class="card" id="snacksSection">
 
 <h2>🍪 Foods</h2>
 
@@ -118,7 +142,7 @@ Add Item
 <!-- DRINKS -->
 <!-- ========================= -->
 
-<section class="card">
+<section class="card" id="drinksSection">
 
 <h2>🥤 Drinks</h2>
 
@@ -138,7 +162,7 @@ Add Item
 <!-- CIGARETTES -->
 <!-- ========================= -->
 
-<section class="card">
+<section class="card" id="cigarettesSection">
 
 <h2>🧴 Daily Essentials </h2>
 
@@ -159,7 +183,7 @@ Add Item
 <!-- INSTANT NOODLES -->
 <!-- ========================= -->
 
-<section class="card">
+<section class="card" id="noodlesSection">
 
 <h2>📦 Others</h2>
 
@@ -177,28 +201,8 @@ Add Item
 </section>
 
 <!-- ========================= -->
-<!-- STORE INFORMATION -->
+<!-- STORE INFORMATION SECTION REMOVED (contained Clear All) -->
 <!-- ========================= -->
-
-<section class="card">
-
-<h2>📊 Store Information</h2>
-
-<p>
-Total Items:
-<strong id="totalItems"></strong>
-</p>
-
-<p>
-Last Updated:
-<strong id="lastUpdated"></strong>
-</p>
-
-<button id="clearAll">
-🗑 Clear All Items
-</button>
-
-</section>
 
 </main>
 
