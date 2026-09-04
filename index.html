@@ -19,7 +19,7 @@
 
 <header>
 
-    <h1>🛒 Ester Store Price's </h1>
+    <h1>🛒 Ester's Store Price's </h1>
     <p>Manage your store items easily.</p>
 
     <input
@@ -42,6 +42,20 @@
 
 <div class="form-group">
 
+<label for="productImage"
+       class="upload-image-btn"
+       id="uploadImageText">
+    Choose Product Image
+</label>
+
+    <input
+        type="file"
+        id="productImage"
+        accept="image/*"
+        hidden
+    >
+
+    
 <input
 type="text"
 id="itemName"
@@ -63,7 +77,7 @@ placeholder="Price">
 </option>
 
 <option value="cigarettesTable">
-✨ Daily Essentials
+ 🧴 Daily Essentials
 </option>
 
 <option value="noodlesTable">
@@ -89,11 +103,14 @@ Add Item
 <h2>🍪 Foods</h2>
 
 <table id="snacksTable">
-    <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 </table>
 
 </section>
@@ -107,11 +124,14 @@ Add Item
 <h2>🥤 Drinks</h2>
 
 <table id="drinksTable">
-    <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 </table>
 </section>
 
@@ -124,11 +144,14 @@ Add Item
 <h2>🧴 Daily Essentials </h2>
 
 <table id="cigarettesTable">
-    <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 </table>
 
 </section>
@@ -142,12 +165,14 @@ Add Item
 <h2>📦 Others</h2>
 
 <table id="noodlesTable">
-
-    <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 </table>
 
 </section>
@@ -187,9 +212,15 @@ Last Updated:
 </footer>
 
 <button id="darkModeBtn">🌙 Dark Mode</button>
+<button id="editModeBtn">✏️ Edit Mode</button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js" defer></script>
+
+<div id="imagePopup" class="image-popup">
+    <button id="closeImagePopup" class="close-image-popup">✕</button>
+    <img id="popupImage" src="" alt="Product preview">
+</div>
 
 </body>
 </html>
