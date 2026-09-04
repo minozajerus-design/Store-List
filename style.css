@@ -2,6 +2,7 @@
    ESTER'S STORE — CLEAN CSS
    Cleaned from style(6).css
 ========================================= */
+
 /* =========================================
    THEME VARIABLES
 ========================================= */
@@ -89,6 +90,128 @@ header p {
     color: var(--muted);
     margin-bottom: 22px;
     font-size: 15px;
+}
+
+/* =========================================
+   CATEGORY FILTER BUTTONS
+========================================= */
+.category-filter {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+}
+
+.filter-icon {
+    font-size: 17px;
+    line-height: 1;
+}
+
+.filter-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px var(--search-shadow);
+    border-color: #9db3e8;
+}
+
+.filter-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Color-coded accent per category on hover/active */
+.filter-btn[data-filter="snacksSection"]:hover {
+    border-color: #f0a83c;
+}
+
+.filter-btn[data-filter="snacksSection"].active {
+    background: linear-gradient(135deg, #f6b73c, #f0873c);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 18px rgba(240, 168, 60, 0.35);
+}
+
+.filter-btn[data-filter="drinksSection"]:hover {
+    border-color: #45c2e0;
+}
+
+.filter-btn[data-filter="drinksSection"].active {
+    background: linear-gradient(135deg, #4fc3ec, #3e93e0);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 18px rgba(69, 194, 224, 0.35);
+}
+
+.filter-btn[data-filter="cigarettesSection"]:hover {
+    border-color: #ab7ce8;
+}
+
+.filter-btn[data-filter="cigarettesSection"].active {
+    background: linear-gradient(135deg, #b285ea, #8a5fd6);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 18px rgba(171, 124, 232, 0.35);
+}
+
+.filter-btn[data-filter="noodlesSection"]:hover {
+    border-color: #45c98f;
+}
+
+.filter-btn[data-filter="noodlesSection"].active {
+    background: linear-gradient(135deg, #4fd19b, #26b47c);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 18px rgba(69, 201, 143, 0.35);
+}
+
+.filter-btn[data-filter="all"]:hover {
+    border-color: #7c9ee8;
+}
+
+.filter-btn[data-filter="all"].active {
+    background: linear-gradient(135deg, #527eea, #7656d6);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 18px rgba(82, 126, 234, 0.35);
+}
+
+@media (max-width: 768px) {
+    .category-filter {
+        margin-top: 16px;
+        padding-top: 16px;
+    }
+
+    .filter-buttons {
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .filter-icon {
+        font-size: 15px;
+    }
 }
 
 /* =========================================
@@ -365,6 +488,10 @@ body.edit-mode #editModeBtn {
     background: #fff0c2;
     color: #9a6b00;
     border-color: #f0d37a;
+}
+
+body:not(.edit-mode) #addItemSection {
+    display: none;
 }
 
 body:not(.edit-mode) .editBtn {
