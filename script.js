@@ -42,11 +42,10 @@ searchInput.addEventListener("input", function () {
 
             if (!row.cells[0]) return;
 
-            const itemName = row.cells[0].textContent
+            const itemName = row.cells[1].textContent
                 .trim()
                 .toLowerCase();
-
-            const price = row.cells[1]
+                const price = row.cells[2]
                 ? row.cells[1].textContent.trim().toLowerCase()
                 : "";
 
@@ -152,14 +151,24 @@ async function loadProducts() {
         row.dataset.id = product.id;
 
 
-        row.innerHTML = `
-            <td>${product.item_name}</td>
-            <td>${product.price}</td>
-            <td>
-                <button class="editBtn">✏️</button>
-                <button class="deleteBtn">🗑</button>
-            </td>
-        `;
+       row.innerHTML = `
+    <td class="picture-cell">
+        ${
+            product.image_url
+                ? `<img src="${product.image_url}" class="product-image" alt="${product.item_name}">`
+                : `<span class="no-picture"></span>`
+        }
+    </td>
+
+<td class="product-name">${product.item_name}</td>
+
+<td class="product-price">${product.price}</td>
+
+    <td>
+        <button class="editBtn">✏️</button>
+        <button class="deleteBtn">🗑</button>
+    </td>
+`;
 
 
         table.appendChild(row);
@@ -257,61 +266,86 @@ const addButton = document.getElementById("addButton");
 
 addButton.addEventListener("click", async function () {
 
-    const itemName = document
-        .getElementById("itemName")
-        .value
-        .trim();
+    const itemName = document.getElementById("itemName").value.trim();
+    const itemPrice = document.getElementById("itemPrice").value.trim();
+    const category = document.getElementById("category").value;
 
-    const itemPrice = document
-        .getElementById("itemPrice")
-        .value
-        .trim();
+    // Picture is OPTIONAL
+    const imageInput = document.getElementById("productImage");
+    const file = imageInput ? imageInput.files[0] : null;
 
-    const category = document
-        .getElementById("category")
-        .value;
-
-
+    // Only name and price are required
     if (itemName === "" || itemPrice === "") {
-
-        alert("Please fill in all fields.");
-
+        alert("Please fill in the item name and price.");
         return;
-
     }
 
+    let imageUrl = null;
+
+    // ==========================================
+    // UPLOAD PICTURE ONLY IF ONE WAS SELECTED
+    // ==========================================
+
+    if (file) {
+
+        const fileName = Date.now() + "-" + file.name;
+
+        const { error: uploadError } = await supabaseClient
+            .storage
+            .from("product-images")
+            .upload(fileName, file);
+
+        if (uploadError) {
+            console.error("Image upload error:", uploadError);
+            alert("Could not upload picture.");
+            return;
+        }
+
+        const { data: publicUrlData } = supabaseClient
+            .storage
+            .from("product-images")
+            .getPublicUrl(fileName);
+
+        imageUrl = publicUrlData.publicUrl;
+    }
+
+    // ==========================================
+    // SAVE PRODUCT
+    // ==========================================
 
     const { error } = await supabaseClient
         .from("products")
         .insert({
-
             item_name: itemName,
             price: "₱" + itemPrice,
-            category: category
-
+            category: category,
+            image_url: imageUrl
         });
 
-
     if (error) {
-
         console.error("Add error:", error);
-
         alert("Could not add item.");
-
         return;
-
     }
 
-
-    // Clear inputs
+    // Clear form
     document.getElementById("itemName").value = "";
     document.getElementById("itemPrice").value = "";
 
+    productImage.value = "";
+    uploadImageText.textContent = "📷 No image selected";
 
     updateLastUpdated();
 
     await loadProducts();
 
+    if (imageInput) {
+        imageInput.value = "";
+    }
+
+    updateLastUpdated();
+
+    await loadProducts();
 });
 
 
@@ -364,17 +398,42 @@ function addDeleteFunction(row) {
 // ==========================================
 // EDIT ITEM - INLINE
 // ==========================================
+let currentlyEditingRow = null;
 
-function addEditFunction(row) {
+  function addEditFunction(row) {
 
     const editButton = row.querySelector(".editBtn");
 
-
     editButton.addEventListener("click", async function () {
+        // Switch from another item being edited
+if (
+    editButton.textContent !== "💾" &&
+    currentlyEditingRow &&
+    currentlyEditingRow !== row
+) {
+    const oldRow = currentlyEditingRow;
 
-        const itemCell = row.cells[0];
-        const priceCell = row.cells[1];
+    const oldItemCell = oldRow.cells[1];
+    const oldPriceCell = oldRow.cells[2];
+    const oldPictureCell = oldRow.cells[0];
 
+    const backup = oldRow._editBackup;
+
+    if (backup) {
+        oldItemCell.textContent = backup.item;
+        oldPriceCell.textContent = backup.price;
+        oldPictureCell.innerHTML = backup.picture;
+
+        oldRow.querySelector(".editBtn").textContent = "✏️";
+    }
+
+    currentlyEditingRow = null;
+}
+
+
+        const itemCell = row.cells[1];
+        const priceCell = row.cells[2];
+        const pictureCell = row.cells[0];
 
         // ==================================
         // SAVE EDIT
@@ -384,6 +443,7 @@ function addEditFunction(row) {
 
             const itemInput = itemCell.querySelector("input");
             const priceInput = priceCell.querySelector("input");
+            const imageInput = pictureCell.querySelector("input[type='file']");
 
 
             const newItem = itemInput.value.trim();
@@ -402,32 +462,84 @@ function addEditFunction(row) {
             const productId = row.dataset.id;
 
 
+           let newImageUrl = null;
+
+if (imageInput && imageInput.files.length > 0) {
+
+    const file = imageInput.files[0];
+    const fileName = Date.now() + "-" + file.name;
+
+    const { error: uploadError } = await supabaseClient
+        .storage
+        .from("product-images")
+        .upload(fileName, file);
+
+    if (uploadError) {
+        console.error("Image upload error:", uploadError);
+        alert("Could not upload new picture.");
+        return;
+    }
+
+    const { data: publicUrlData } = supabaseClient
+        .storage
+        .from("product-images")
+        .getPublicUrl(fileName);
+
+         newImageUrl = publicUrlData.publicUrl;
+          }
+
+                 const updateData = {
+                item_name: newItem,
+                price: "₱" + newPrice
+              };
+
+             if (newImageUrl) {
+                updateData.image_url = newImageUrl;
+         }
+
             const { error } = await supabaseClient
-                .from("products")
-                .update({
-
-                    item_name: newItem,
-                    price: "₱" + newPrice
-
-                })
-                .eq("id", productId);
-
+             .from("products")
+             .update(updateData)
+             .eq("id", productId);
 
             if (error) {
-
                 console.error("Update error:", error);
-
                 alert("Could not update item.");
-
                 return;
 
             }
+            
+            const currentScroll = window.scrollY;
+
+            await loadProducts();
+
+            currentlyEditingRow = null;
+
+            window.scrollTo({
+             top: currentScroll,
+             behavior: "instant"
+            });
 
 
-            itemCell.textContent = newItem;
-            priceCell.textContent = "₱" + newPrice;
+            // Update picture on the page immediately
+            if (newImageUrl) {
+            pictureCell.innerHTML = `
+              <img
+               src="${newImageUrl}"
+             class="product-image"
+              alt="${newItem}"
+                  >
+               `;
+               }
+               const cancelImageButton = document.createElement("button");
 
-            editButton.textContent = "✏️";
+cancelImageButton.type = "button";
+cancelImageButton.textContent = "✕ Cancel";
+cancelImageButton.className = "cancel-image-btn";
+
+
+
+             editButton.textContent = "✏️";
 
 
             updateLastUpdated();
@@ -440,6 +552,15 @@ function addEditFunction(row) {
         // ==================================
         // START EDITING
         // ==================================
+       
+         // Save the original state so we can restore it if switching rows
+   if (!row._editBackup) {
+      row._editBackup = {
+          item: itemCell.textContent,
+          price: priceCell.textContent,
+          picture: pictureCell.innerHTML
+      };
+   }
 
         const currentItem = itemCell.textContent;
 
@@ -447,10 +568,78 @@ function addEditFunction(row) {
             .replace("₱", "")
             .trim();
 
+        const currentPicture = pictureCell.querySelector("img");    
 
         itemCell.innerHTML = "";
-
         priceCell.innerHTML = "";
+
+        const imageInput = document.createElement("input");
+        imageInput.type = "file";
+        imageInput.accept = "image/*";
+        imageInput.style.display = "none";
+        imageInput.addEventListener("change", function () {
+
+    const file = imageInput.files[0];
+
+    if (!file) return;
+
+    const previewUrl = URL.createObjectURL(file);
+
+    pictureCell.innerHTML = `
+        <img
+            src="${previewUrl}"
+            class="product-image"
+            alt="Selected picture"
+        >
+    `;
+
+const cancelImageButton = document.createElement("button");
+
+cancelImageButton.type = "button";
+cancelImageButton.textContent = "✕ Cancel";
+cancelImageButton.className = "cancel-image-btn";
+
+cancelImageButton.addEventListener("click", function () {
+    imageInput.value = "";
+
+    if (currentPicture) {
+        pictureCell.innerHTML = `
+            <img
+                src="${currentPicture.src}"
+                class="product-image"
+                alt="Product picture"
+            >
+        `;
+    } else {
+        pictureCell.innerHTML = `
+            <span class="no-picture"></span>
+        `;
+    }
+
+    pictureCell.appendChild(imageButton);
+    pictureCell.appendChild(imageInput);
+});
+
+pictureCell.appendChild(cancelImageButton);
+
+    pictureCell.appendChild(imageButton);
+    pictureCell.appendChild(imageInput);
+});
+
+      const imageButton = document.createElement("button");
+      imageButton.type = "button";
+      imageButton.textContent = currentPicture
+      ? "🖼️ Change image"
+      : "📷 Add image";
+
+     imageButton.className = "edit-image-btn";
+
+     imageButton.addEventListener("click", function () {
+      imageInput.click();
+        });
+
+        pictureCell.appendChild(imageButton);
+        pictureCell.appendChild(imageInput);
 
 
         const itemInput = document.createElement("input");
@@ -470,9 +659,9 @@ function addEditFunction(row) {
 
 
         editButton.textContent = "💾";
-
-
+        currentlyEditingRow = row;
         itemInput.focus();
+        
 
     });
 
@@ -585,6 +774,36 @@ if (darkModeBtn) {
 }   
 
 // ===============================
+// EDIT MODE
+// ===============================
+
+const editModeBtn = document.getElementById("editModeBtn");
+
+if (editModeBtn) {
+
+    let editMode = false;
+
+    editModeBtn.addEventListener("click", function () {
+
+        editMode = !editMode;
+
+        document.body.classList.toggle("edit-mode", editMode);
+
+        if (editMode) {
+
+            editModeBtn.textContent = "🔒 Done Editing";
+
+        } else {
+
+            editModeBtn.textContent = "✏️ Edit Mode";
+
+        }
+
+    });
+
+}
+
+// ===============================
 // CLEAR ALL ITEMS
 // ===============================
 
@@ -643,3 +862,32 @@ if (clearAllButton) {
     });
 
 }
+
+const productImage = document.getElementById("productImage");
+const uploadImageText = document.getElementById("uploadImageText");
+
+productImage.addEventListener("change", function () {
+
+    if (productImage.files.length > 0) {
+        uploadImageText.textContent = "✅ Image added";
+    } else {
+        uploadImageText.textContent = "📷 Choose Product Image";
+    }
+
+});
+
+const imagePopup = document.getElementById("imagePopup");
+const popupImage = document.getElementById("popupImage");
+const closeImagePopup = document.getElementById("closeImagePopup");
+
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("product-image")) {
+        popupImage.src = event.target.src;
+        imagePopup.style.display = "block";
+    }
+});
+
+closeImagePopup.addEventListener("click", function () {
+    imagePopup.style.display = "none";
+    popupImage.src = "";
+});
