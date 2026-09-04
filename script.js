@@ -5,10 +5,72 @@
 const SUPABASE_URL = "https://tibtcvummtlumcbvbqqn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_8T3oavIqmiKJ1gtUk481iA_MNduWJkU";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+let supabaseClient = null;
+
+try {
+
+    supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+} catch (err) {
+
+    console.error("Could not connect to Supabase:", err);
+    alert("Could not connect to the database. Check your internet connection and reload the page.");
+
+}
+
+// ===============================
+// CATEGORY FILTER
+// ===============================
+
+const categoryFilter = document.querySelector(".category-filter");
+
+if (categoryFilter) {
+
+    const filterButtons = categoryFilter.querySelectorAll(".filter-btn");
+
+    const categorySections = [
+        document.getElementById("snacksSection"),
+        document.getElementById("drinksSection"),
+        document.getElementById("cigarettesSection"),
+        document.getElementById("noodlesSection")
+    ].filter(Boolean);
+
+    filterButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const filter = button.dataset.filter;
+
+            // Highlight the selected button only
+            filterButtons.forEach(function (btn) {
+                btn.classList.toggle("active", btn === button);
+            });
+
+            // Show only the matching category ("all" shows everything)
+            categorySections.forEach(function (section) {
+
+                if (filter === "all" || section.id === filter) {
+                    section.style.display = "";
+                } else {
+                    section.style.display = "none";
+                }
+
+            });
+
+            // Clear any active search so it doesn't fight with the filter
+            if (searchInput.value !== "") {
+                searchInput.value = "";
+                searchInput.dispatchEvent(new Event("input"));
+            }
+
+        });
+
+    });
+
+}
 
 // ===============================
 // SEARCH
@@ -674,9 +736,13 @@ pictureCell.appendChild(cancelImageButton);
 
 function updateTotalItems() {
 
+    const totalEl = document.getElementById("totalItems");
+
+    if (!totalEl) return;
+
     const total = document.querySelectorAll("tbody tr").length;
 
-    document.getElementById("totalItems").textContent = total;
+    totalEl.textContent = total;
 
 }
 
@@ -687,10 +753,13 @@ function updateTotalItems() {
 
 function updateLastUpdated() {
 
+    const lastUpdatedEl = document.getElementById("lastUpdated");
+
+    if (!lastUpdatedEl) return;
+
     const now = new Date();
 
-    document.getElementById("lastUpdated").textContent =
-        now.toLocaleString();
+    lastUpdatedEl.textContent = now.toLocaleString();
 
 }
 
@@ -804,64 +873,8 @@ if (editModeBtn) {
 }
 
 // ===============================
-// CLEAR ALL ITEMS
+// CLEAR ALL ITEMS REMOVED (was in Store Information section)
 // ===============================
-
-const clearAllButton = document.getElementById("clearAll");
-
-if (clearAllButton) {
-
-    clearAllButton.addEventListener("click", async function () {
-
-        const confirmed = confirm(
-            "Are you sure you want to delete ALL items?"
-        );
-
-        if (!confirmed) return;
-
-
-        // Delete every product from Supabase
-        const { error } = await supabaseClient
-            .from("products")
-            .delete()
-            .not("id", "is", null);
-
-
-        if (error) {
-
-            console.error("Clear all error:", error);
-
-            alert("Could not clear items: " + error.message);
-
-            return;
-
-        }
-
-
-        // Remove products from the webpage
-        document.querySelectorAll("table").forEach(function (table) {
-
-            table.querySelectorAll("tr").forEach(function (row, index) {
-
-                // Keep the header
-                if (index > 0) {
-                    row.remove();
-                }
-
-            });
-
-        });
-
-
-        // Update counter
-        updateTotalItems();
-
-
-        alert("All items have been cleared!");
-
-    });
-
-}
 
 const productImage = document.getElementById("productImage");
 const uploadImageText = document.getElementById("uploadImageText");
