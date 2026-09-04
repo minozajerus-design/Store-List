@@ -1,1 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ester's Store</title>
 
+
+    <link rel="stylesheet" href="style.css">
+
+<body>
+
+<script>
+    if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark-mode");
+    }
+</script>
+
+<header>
+
+    <h1>🛒 Ester's Store Price's </h1>
+    <p>Manage your store items easily.</p>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search items...">
+
+</header>
+
+
+<main>
+
+<!-- ========================= -->
+<!-- ADD ITEM -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>➕ Add New Item</h2>
+
+<div class="form-group">
+
+<label for="productImage"
+       class="upload-image-btn"
+       id="uploadImageText">
+    Choose Product Image
+</label>
+
+    <input
+        type="file"
+        id="productImage"
+        accept="image/*"
+        hidden
+    >
+
+    
+<input
+type="text"
+id="itemName"
+placeholder="Item Name">
+
+<input
+type="number"
+id="itemPrice"
+placeholder="Price">
+
+<select id="category">
+
+<option value="snacksTable">
+🍪 Foods
+</option>
+
+<option value="drinksTable">
+🥤 Drinks
+</option>
+
+<option value="cigarettesTable">
+ 🧴 Daily Essentials
+</option>
+
+<option value="noodlesTable">
+📦Others
+</option>
+
+</select>
+
+<button id="addButton">
+Add Item
+</button>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- SNACKS -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>🍪 Foods</h2>
+
+<table id="snacksTable">
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- DRINKS -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>🥤 Drinks</h2>
+
+<table id="drinksTable">
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+</table>
+</section>
+
+<!-- ========================= -->
+<!-- CIGARETTES -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>🧴 Daily Essentials </h2>
+
+<table id="cigarettesTable">
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- INSTANT NOODLES -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>📦 Others</h2>
+
+<table id="noodlesTable">
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- STORE INFORMATION -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>📊 Store Information</h2>
+
+<p>
+Total Items:
+<strong id="totalItems"></strong>
+</p>
+
+<p>
+Last Updated:
+<strong id="lastUpdated"></strong>
+</p>
+
+<button id="clearAll">
+🗑 Clear All Items
+</button>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+&copy; 2026 Ester's Store Manager
+</p>
+
+</footer>
+
+<button id="darkModeBtn">🌙 Dark Mode</button>
+<button id="editModeBtn">✏️ Edit Mode</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js" defer></script>
+
+<div id="imagePopup" class="image-popup">
+    <button id="closeImagePopup" class="close-image-popup">✕</button>
+    <img id="popupImage" src="" alt="Product preview">
+</div>
+
+</body>
+</html>
